@@ -1,7 +1,10 @@
 package com.daclink;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Markov {
 
@@ -19,8 +22,18 @@ public class Markov {
         return "";
     }
 
-    public String addFromFile(String fileName) {
+    public void addFromFile(String fileName) {
+        try {
+            File file = new File(fileName);
+            Scanner scanner = new Scanner(file);
 
+            while (scanner.hasNextLine()) {
+                addLine(scanner.nextLine());
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.err.println("Error: File not found - " + fileName);
+        }
     }
 
     public void addWord(String word) {
@@ -40,8 +53,14 @@ public class Markov {
     }
 
     public void addLine(String line) {
+        if (line.isEmpty()) return;
+        String[] tokens = line.split("\\s+");
 
+        for (String word : tokens) {
+            addWord(word);
+        }
     }
+
 
     private boolean endsWithPPunctuation(String word) {}
 
