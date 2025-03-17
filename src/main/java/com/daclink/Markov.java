@@ -19,7 +19,24 @@ public class Markov {
     }
 
     public String getSentence() {
-        return "";
+        Random random = new Random();
+        if (!words.containsKey(BEGINS_SENTENCE) || words.get(BEGINS_SENTENCE).isEmpty()) {
+            return "No sentences available.";
+        }
+
+        StringBuilder sentence = new StringBuilder();
+        String currentWord = randomWord(BEGINS_SENTENCE);
+
+        while (currentWord != null && !endsWithPunctuation(currentWord)) {
+            sentence.append(currentWord).append(" ");
+            currentWord = randomWord(currentWord);
+        }
+
+        if (currentWord != null) {
+            sentence.append(currentWord);
+        }
+
+        return sentence.toString();
     }
 
     public void addFromFile(String fileName) {
