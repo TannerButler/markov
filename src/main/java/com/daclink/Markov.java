@@ -37,7 +37,14 @@ public class Markov {
     }
 
     public void addWord(String word) {
+        if (endsWithPunctuation(prevWord)) {
+            words.get(BEGINS_SENTENCE).add(word);
+        }
 
+        words.putIfAbsent(prevWord, new ArrayList<>());
+        words.get(prevWord).add(word);
+
+        prevWord = word;
     }
 
     public String randomWord(String key) {
