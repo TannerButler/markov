@@ -47,6 +47,9 @@ public class Markov {
         prevWord = word;
     }
 
+    private boolean endsWithPunctuation(String prevWord) {
+    }
+
     public String randomWord(String key) {
         return "";
     }
