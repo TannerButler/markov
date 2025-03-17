@@ -64,11 +64,19 @@ public class Markov {
         prevWord = word;
     }
 
-    private boolean endsWithPunctuation(String prevWord) {
+    private static boolean endsWithPunctuation(String word) {
+        if (word == null || word.isEmpty()) return false;
+        return PUNCTUATION_MARKS.contains(String.valueOf(word.charAt(word.length() - 1)));
     }
 
     public String randomWord(String key) {
-        return "";
+        if (!words.containsKey(key) || words.get(key).isEmpty()) {
+            return null;
+        }
+
+        List<String> wordList = words.get(key);
+        Random random = new Random();
+        return wordList.get(random.nextInt(wordList.size()));
     }
 
     public String toString() {
